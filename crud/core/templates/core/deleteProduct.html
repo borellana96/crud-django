@@ -1,0 +1,13 @@
+{% extends "core/base.html"%}
+
+{% block contenido %}
+<h3>De verdad quieres borrar a {{producto.nombre}}  No lo borres :c</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+    <button class="btn btn-success"> 
+        <a href="{% url 'home' %} ">Cancelar</a>
+    </button>
+</form>
+
+{% endblock contenido %}

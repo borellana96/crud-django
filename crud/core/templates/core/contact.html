@@ -1,0 +1,99 @@
+{% extends "core/base.html"%} 
+
+{% load static %} 
+
+{% block contenido %}
+
+<!--<style type="text/css">
+  #error_text{
+    color: red;
+  }
+  #error_field{
+    border-color: red;
+  }
+</style>-->
+
+<h3>Formulario para Contacto</h3>
+<form class="form-group" action="" method="post" id="contactForm">
+  {% csrf_token %}
+  <div class="container">
+    <div class="form-group">
+      <label>Asunto: </label>
+      <input type="text" id="asunto">
+      <div id="box-asunto"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Descripcion: </label>
+      <div class="container">
+      <textarea id="descripcion"cols="30" rows="10"></textarea>
+      <div id="box-descripcion"></div>
+      </div>
+    </div>
+
+  <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+<!--{% if enviado %}
+<div id="alert" class="alert alert-success" role="alert">
+  {{ mensaje }}
+</div>
+{% endif %}-->
+
+{% block scripts %}
+    <script>
+        const form = document.getElementById('contactForm');
+        const asunto = document.getElementById('asunto');
+        const descripcion = document.getElementById('descripcion');
+        const csrf = document.getElementsByName('csrfmiddlewaretoken');
+        const url = "";
+
+        const boxAsunto = document.getElementById('box-asunto');
+        const boxDescripcion = document.getElementById('box-descripcion');
+        
+        const handleAlert = (type, text) => {
+            box.innerHTML += `<div class="alert alert-${type}" role="alert">${text}</div>`
+        }
+
+        const textAlertAsunto = (text) => {
+            boxAsunto.innerHTML = `<div class="alert alert-danger" role="alert">${text}</div>`
+        }
+
+        const textAlertDescripcion = (text) => {
+            boxDescripcion.innerHTML = `<div class="alert alert-danger" role="alert">${text}</div>`
+        }
+
+        const limpiarCampos = () => {
+            boxAsunto.innerHTML = ``
+            boxDescripcion.innerHTML = ``
+        }
+
+        form.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data:{
+                    'csrfmiddlewaretoken': csrf[0].value,
+                    'asunto': asunto.value,
+                    'descripcion': descripcion.value
+                },
+                success: function(response){
+                    console.log(response);
+                    limpiarCampos();
+                    if(response.hasOwnProperty('asuntoMessage')){
+                        textAlertAsunto(response.asuntoMessage);
+                    }
+                    if(response.hasOwnProperty('descripcionMessage')){
+                        textAlertDescripcion(response.descripcionMessage);
+                    }
+                },
+                error: function(response){
+                    console.log(response);
+                }
+            })
+        })
+    </script>
+{% endblock scripts %}
+
+{% endblock contenido %}

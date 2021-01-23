@@ -1,0 +1,78 @@
+{% extends "core/base.html"%} 
+
+{% load static %} 
+
+{% block contenido %}
+
+<style type="text/css">
+  #error_text{
+    color: red;
+  }
+  #error_field{
+    border-color: red;
+  }
+</style>
+
+<div class="row align-items-center">
+  <div class="col">
+    <h3>Formulario de Productos</h3>
+    <form class="form-group" action="" method="post">
+      {% csrf_token %}
+    <!--
+      <div class="container">
+        <div class="nombre">
+          <label>Nombre: </label>
+          <div>
+            {{ form.nombre }}
+          </div>
+        </div>
+
+        <div class="marca">
+          <label>Marca: </label>
+          <div>
+            {{ form.marca }}
+          </div>
+          <div>
+            {{ form.marca.errors }}
+          </div>
+        </div>
+
+        <div class="categoria">
+          <label>Categoría: </label>
+          <div>
+            {{ form.categoria }}
+          </div>
+        </div>
+
+        <div class="precio">
+          <label>Precio: </label>
+          <div>
+            {{ form.precio }}
+          </div>
+        </div>
+      </div>-->
+
+      {% for field in form %}
+        <div class="fieldWrapper">
+          <label> {{ field.label }}: </label>
+          <div> {{ field }} </div>
+          <div id="error_text"> {{ field.errors.as_text }} </div>
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+  </div>
+
+  <div class="col">
+    <img class="img-responsive" src="{% static 'img/productos.jpg' %}"  alt="">
+  </div>
+
+</div>
+
+{% if enviado %}
+<div id="alert" class="alert alert-success" role="alert">
+  {{ mensaje }}
+</div>
+{% endif %}
+
+{% endblock contenido %}

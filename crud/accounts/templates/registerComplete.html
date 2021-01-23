@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productos - CRUD</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h3>Registro Completo del Proveedor</h3>
+      <form class="form-group" action="" method="post">
+        {% csrf_token %}
+        <label>id del usuario: </label>
+        <input type="text" class="txtuser">
+        {% for field in form %}
+          <div class="fieldWrapper">
+            {{ field.label_tag }}
+            {{ field }}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Registrar</button>
+      </form>
+    
+    </div>
+  </body>
+</html>

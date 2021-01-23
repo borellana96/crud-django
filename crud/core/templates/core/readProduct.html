@@ -1,0 +1,36 @@
+{% extends "core/base.html"%}
+
+{% load static %}
+
+{% block contenido %}
+Lista de todos los productos
+<div class="row align-items-center">
+    <div class="col">
+        <table border="2">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Nombre</td>
+                    <td>Marca</td>
+                    <td>Categoria</td>
+                    <td>Precio</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{producto.id}}</td>
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.marca}}</td>
+                    <td>{{producto.categoria}}</td>
+                    <td>{{producto.precio}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <img class="img-responsive" src="{% static 'img/camisetas.jpg' %}" alt="" width="500">
+    </div>
+</div>
+{% endblock contenido %}
